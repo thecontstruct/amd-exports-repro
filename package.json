@@ -1,0 +1,13 @@
+{
+  "name": "amd-exports-repro",
+  "private": true,
+  "scripts": {
+    "build:rspack": "BUNDLER=rspack rspack build -c rspack.config.js",
+    "build:rspack-split": "BUNDLER=rspack SPLIT=1 rspack build -c rspack.config.js",
+    "build:webpack": "BUNDLER=webpack webpack -c webpack.config.js",
+    "build:webpack-split": "BUNDLER=webpack SPLIT=1 webpack -c webpack.config.js",
+    "build": "npm run build:rspack && npm run build:rspack-split && npm run build:webpack && npm run build:webpack-split",
+    "run:all": "for d in rspack rspack-split webpack webpack-split; do echo \"== $d\"; node run.js dist/$d 2>&1 | grep -E 'RESULT|ReferenceError'; done"
+  },
+  "devDependencies": {"@rspack/core":"2.2.9","@rspack/cli":"2.2.9","webpack":"5.111.1","webpack-cli":"^6"}
+}
